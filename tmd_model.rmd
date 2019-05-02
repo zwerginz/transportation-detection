@@ -1,0 +1,39 @@
+---
+title: "Travel Mode Detection"
+author: "Zach Werginz"
+date: "May 1, 2019"
+output: rmarkdown::github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library('corrplot')
+library('randomForest')
+library('e1071')
+```
+
+# Reading data and visualizing data structures
+```{r}
+tmd <- read.csv('dataset_5secondWindow%5B3%5D.csv', 
+                col.names=c('time', 'accelerometer.mean', 'accelerometer.min', 
+                            'accelerometer.max', 'accelerometer.std', 
+                            'game_rotation_vector.mean','game_rotation_vector.min', 
+                            'game_rotation_vector.max', 'game_rotation_vector.std',
+                            'gyroscope.mean', 'gyroscope.min', 'gyroscope.max',
+                            'gyroscope.std', 'gyroscope_uncalibrated.mean',
+                            'gyroscope_uncalibrated.min', 'gyroscope_uncalibrated.max',
+                            'gyroscope_uncalibrated.std', 'linear_acceleration.mean',
+                            'linear_acceleration.min', 'linear_acceleration.max', 
+                            'linear_acceleration.std', 'orientation.mean', 
+                            'orientation.min', 'orientation.max', 'orientation.std',
+                            'rotation_vector.mean', 'rotation_vector.min', 
+                            'rotation_vector.max', 'rotation_vector.std', 
+                            'sound.mean', 'sound.min', 'sound.max', 'sound.std',
+                            'speed.mean', 'speed.min', 'speed.max', 'speed.std', 'target'))
+summary(tmd)
+str(tmd)
+```
+
+```{r}
+corrplot(abs(cor(tmd[, 1:37])), method='color', diag=FALSE, type='upper')
+```
